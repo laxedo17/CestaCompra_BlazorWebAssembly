@@ -1,0 +1,32 @@
+[
+  {
+    "productoId": 1,
+    "productoNome": "Charger",
+    "precio": 15,
+    "imaxe": "charger.jpg"
+  },
+  {
+    "productoId": 2,
+    "productoNome": "Ear Buds",
+    "precio": 22,
+    "imaxe": "earbuds.jpg"
+  },
+  {
+    "productoId": 3,
+    "productoNome": "Key Chain",
+    "precio": 1,
+    "imaxe": "keychain.jpg"
+  },
+  {
+    "productoId": 4,
+    "productoNome": "Travel Mug",
+    "precio": 8,
+    "imaxe": "travelmug.jpg"
+  },
+  {
+    "productoId": 5,
+    "productoNome": "T-Shirt",
+    "precio": 20,
+    "imaxe": "tshirt.jpg"
+  }
+]

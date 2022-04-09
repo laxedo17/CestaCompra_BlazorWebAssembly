@@ -1,0 +1,34 @@
+﻿@inherits LayoutComponentBase
+@using CestaCompra_BlazorWebAssembly.Services
+@inject ICestaService cestaService
+@implements IDisposable
+
+
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            Total Cesta: @cestaService.Total €
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        cestaService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        cestaService.OnChange -= StateHasChanged;
+    }
+}

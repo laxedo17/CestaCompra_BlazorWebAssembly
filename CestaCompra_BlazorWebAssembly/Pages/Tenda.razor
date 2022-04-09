@@ -1,0 +1,68 @@
+﻿@page "/tenda"
+@using CestaCompra_BlazorWebAssembly.Models
+@using CestaCompra_BlazorWebAssembly.Services
+@inject ICestaService cestaService
+@inject HttpClient Http
+
+@if (productos == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-x1-4 col-lg-6">
+            <h2>Productos</h2>
+            <table class="table">
+                @foreach (Producto producto in productos)
+                {
+                    <tr>
+                        <td>
+                            <img src="imaxes/@producto.Imaxe" />
+                        </td>
+                        <td class="align-middle">
+                            @producto.ProductoNome
+                        </td>
+                        <td class="align-middle">
+                            @producto.Precio €
+                        </td>
+                        <td class="align-middle">
+                            <button class="btn btn-primary" @onclick="@(() => cestaService.AddProducto(producto))">Engadir a
+                                cesta</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col-x1-4 col-lg-6">
+            @if (cestaService.Cesta.Any())
+            {
+                <h2>Tua Cesta</h2>
+                <ul class="list-group">
+                    @foreach (Producto producto in cestaService.Cesta)
+                    {
+                        <li class="list-group-item p-2">
+                            <button class="btn btn-sm" @onclick="@(()=>cestaService.DeleteProducto(producto))">
+                                <span class="oi oi-delete"></span>
+                            </button>
+                            @producto.ProductoNome - @producto.Precio €
+                        </li>
+                    }
+                </ul>
+                <div class="p-2">
+                    <h3>Total: @cestaService.Total €</h3>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    public IList<Producto> productos;
+    private int total;
+
+    protected override async Task OnInitializedAsync()
+    {
+        productos = await Http.GetFromJsonAsync<Producto[]>("sample-data/productos.json");
+    }
+}
